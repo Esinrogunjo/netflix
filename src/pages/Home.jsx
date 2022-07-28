@@ -1,22 +1,20 @@
-import React from 'react'
-import Main from '../components/Main'
-import Row from '../components/Row'
-import requests from '../Request'
+import React, { useState } from "react";
+import Main from "../components/Main";
+import Row from "../components/Row";
+import Sidebar from "../components/Sidebar";
+import requests from "../Request";
 
-
-const Home = () => {
- 
+const Home = ({ enableSidebar }) => {
   return (
     <div>
-        <Main/>
-        <Row title="Up Coming" fetchUrl = {requests.requestUpcoming}/>
-        <Row title="Popular" fetchUrl = {requests.requestPopular}/>
-        <Row title="Trending" fetchUrl = {requests.requestTrending}/>
-        <Row title="Top Rated" fetchUrl = {requests.requestTopRated}/>
-        <Row title="Horror" fetchUrl = {requests.requestHorror}/>
-       
+      {enableSidebar && <Sidebar />}
+      <Main />
+      <Row rowID="2" title="Popular" fetchURL={requests.requestPopular} />
+      <Row rowID="3" title="Trending" fetchURL={requests.requestTrending} />
+      <Row rowID="4" title="Top Rated" fetchURL={requests.requestTopRated} />
+      <Row rowID="5" title="Horror" fetchURL={requests.requestHorror} />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

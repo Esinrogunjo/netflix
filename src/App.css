@@ -1,38 +1,45 @@
-.App {
-  text-align: center;
+.nav-container {
+  @apply fixed top-0 w-screen h-16 z-[200] bg-[#0C0C0C] bg-opacity-25;
+}
+.nav-container.active {
+  @apply bg-[#0C0C0C] bg-opacity-100;
+}
+.nav-wrapper {
+  @apply flex items-center justify-between p-4 w-full absolute;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.nav-list {
+  @apply text-white flex font-semibold gap-x-4 items-center;
+}
+.signin {
+  @apply text-white  pr-4;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.signup {
+  @apply bg-red-600 px-6 py-2 rounded cursor-pointer text-white;
+}
+.mobile-menu {
+  @apply text-white font-semibold hidden;
+}
+
+.side-bar {
+  @apply flex flex-col bg-[#121313] items-center gap-y-4  bg-opacity-90 border-t-[2px] h-full border-white  text-white font-semibold pt-8;
+}
+@media screen and (min-width: 750px) {
+  .side-bar-wrapper {
+    @apply hidden;
   }
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media screen and (max-width: 750px) {
+  .nav-list,
+  .signin,
+  .signup {
+    @apply hidden;
   }
-  to {
-    transform: rotate(360deg);
+  .mobile-menu {
+    @apply flex;
+  }
+  .side-bar-wrapper {
+    @apply fixed z-[400] inset-0 w-1/2 mt-16 h-auto pb-16;
   }
 }

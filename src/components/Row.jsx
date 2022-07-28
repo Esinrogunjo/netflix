@@ -1,44 +1,51 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import {FaHeart, FaRegHeart} from 'react';
-const Row = ({title, fetchUrl}) => {
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Movie from "./Movie";
 
- const [movies, setMovies] = useState([]);
- const [like, setLike]= useState(false)
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
-    useEffect(() => {
-      axios.get(fetchUrl).then((response) => {
-        setMovies(response?.data.results);
-      });
-    }, [fetchUrl]);
+const Row = ({ title, fetchURL, rowID }) => {
+  const [movies, setMovies] = useState([]);
+  console.log(fetchURL);
+  useEffect(() => {
+    axios.get(fetchURL).then((response) => {
+      setMovies(response?.data.results);
+    });
+  }, [fetchURL]);
 
-
+  const slideLeft = () => {
+    var slider = document.getElementById("slider" + rowID);
+    slider.scrollLeft = slider.scrollLeft - 500;
+  };
+  const slideRight = () => {
+    var slider = document.getElementById("slider" + rowID);
+    slider.scrollLeft = slider.scrollLeft + 500;
+  };
   return (
     <>
-    <h2 className='text-white font-bold md:text-xl p-4'>{title}</h2>
-    <div className='relative flex items-center'>
-        <div id={'slider'}>
-             {movies.map((item, id)=>(
-               
-                 <div key={id} className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
-
-                     <img className='w-full h-auto block' src={`https://image.tmdb.org/t/p/original/${item?.backdrop_path}`} alt={item?.title} />
-
-
-                     <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100  text-white'>
-                         <p className='white-space-normal text-xl md:text-sm font-bold flex justify-center items-center h-full text-center  '>{item?.title}</p>
-                            <p>
-                                {like ? <FaHeart className="absolute top-4 left-4 text-gray-300"/> : <FaRegHeart className="absolute top-4 left-4 text-gray-300" /> }</p>
-                     </div>
- 
-                 </div>
-             ))}
+      <h2 className="text-white font-bold md:text-xl p-4">{title}</h2>
+      <div className="relative flex items-center group">
+        <MdChevronLeft
+          onClick={slideLeft}
+          size={40}
+          className="bg-white left-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block "
+        />
+        <div
+          id={"slider" + rowID}
+          className="w-full   h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
+        >
+          {movies.map((item, id) => (
+            <Movie item={item} key={id} />
+          ))}
         </div>
-    </div>
-    
-    
+        <MdChevronRight
+          onClick={slideRight}
+          size={40}
+          className="bg-white right-0 rounded-full absolute opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
+        />
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Row
+export default Row;
