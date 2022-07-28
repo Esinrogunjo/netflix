@@ -1,13 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import requests, { getMovie } from "../Request";
+import requests from "../Request";
 import { FaPlay } from "react-icons/fa";
-import { GrCircleInformation } from "react-icons/gr";
-import Sidebar from "./Sidebar";
 
 const Main = () => {
   const [movies, setMovies] = useState([]);
-  const [video, setVideo] = useState();
 
   const movie = movies[Math.floor(Math.random() * movies?.length)];
   useEffect(() => {
@@ -15,15 +12,6 @@ const Main = () => {
       .get(requests.requestPopular)
       .then(({ data }) => setMovies(data.results));
   }, []);
-
-  //     if(movie){
-  //  const url = getMovie(movie.id)
-  //      axios.get(url).then(({data})=>{
-  //   setVideo(data)
-  //   console.log(data)
-  // })
-
-  // }
 
   const truncateString = (str, num) => {
     if (str?.length > num) {
@@ -50,7 +38,7 @@ const Main = () => {
               Play
             </button>
             <button className="border bg-[#5C5050] rounded-md text-white border-[#5C5050] py-2 px-5 ml-4 flex items-center gap-x-2">
-              <img src="/info.svg" />
+              <img src="/info.svg" alt="info" />
               More Info
             </button>
           </div>

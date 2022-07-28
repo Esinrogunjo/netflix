@@ -35,7 +35,7 @@ const Navbar = ({ setEnableSidebar }) => {
             <Link to={"/"}>My List</Link>
           </div>
           <div className="mobile-menu" onClick={handleSidebarChange}>
-            Browse <img src="/arrowdown.svg" />
+            Browse <img src="/arrowdown.svg" alt="arrow" />
           </div>
         </div>
 
